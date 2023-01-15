@@ -8,7 +8,7 @@ using NexusLabs.OpenAI.Http;
 
 namespace NexusLabs.OpenAI.Completions
 {
-    public sealed class CompletionsApiClient : ICompletionsApiClient
+    internal sealed class CompletionsApiClient : ICompletionsApiClient
     {
         private readonly IHttpClient _httpClient;
 
