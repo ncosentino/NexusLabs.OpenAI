@@ -1,1 +1,1 @@
-﻿
+﻿Console.WriteLine("Please implement examples!");
