@@ -4,7 +4,7 @@ using NexusLabs.OpenAI.Http;
 
 namespace NexusLabs.OpenAI.Autofac
 {
-    internal sealed class OpenAiModule : Module
+    public sealed class OpenAiModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {
