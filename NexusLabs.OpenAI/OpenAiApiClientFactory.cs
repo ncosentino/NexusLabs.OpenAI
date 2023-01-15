@@ -20,7 +20,8 @@ namespace NexusLabs.OpenAI
         /// The <see cref="IOpenAiHttpClientWrapperFactory"/> to use when 
         /// creating <see cref="IHttpClient"/> instances.
         /// </param>
-        public OpenAiApiClientFactory(IOpenAiHttpClientWrapperFactory openAiHttpClientWrapperFactory)
+        public OpenAiApiClientFactory(
+            IOpenAiHttpClientWrapperFactory openAiHttpClientWrapperFactory)
         {
             _openAiHttpClientWrapperFactory = openAiHttpClientWrapperFactory;
         }
@@ -28,8 +29,16 @@ namespace NexusLabs.OpenAI
         public IOpenAiApiClient Create(OpenAiApiConfiguration configuration)
         {
             var httpClient = _openAiHttpClientWrapperFactory.Create(configuration);
-            var fineTuneApi = new FineTunesApiClient(httpClient);
-            var filesApi = new FilesApiClient(httpClient);
+
+            var fileInfoWebResultConverter = new FileInfoWebResultConverter();
+            var filesApi = new FilesApiClient(
+                httpClient,
+                fileInfoWebResultConverter);
+
+            var fineTuneWebResultConverter = new FineTuneWebResultConverter(fileInfoWebResultConverter);
+            var fineTuneApi = new FineTunesApiClient(
+                httpClient,
+                fineTuneWebResultConverter);
             var modelsApi = new ModelsApiClient(httpClient);
             var completionsApi = new CompletionsApiClient(httpClient);
             var openAiApiClient = new OpenAiApiClient(

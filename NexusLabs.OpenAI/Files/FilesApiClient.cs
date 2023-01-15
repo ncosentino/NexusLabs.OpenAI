@@ -1,6 +1,4 @@
-﻿using System.Threading;
-
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 using NexusLabs.Contracts;
 using NexusLabs.OpenAI.Http;
@@ -11,11 +9,17 @@ namespace NexusLabs.OpenAI.Files
     internal sealed class FilesApiClient : IFilesApiClient
     {
         private readonly IHttpClient _httpClient;
+        private readonly IFileInfoWebResultConverter _fileInfoWebResultConverter;
 
-        public FilesApiClient(IHttpClient httpClient)
+        public FilesApiClient(
+            IHttpClient httpClient,
+            IFileInfoWebResultConverter fileInfoWebResultConverter)
         {
             ArgumentContract.RequiresNotNull(httpClient, nameof(httpClient));
+            ArgumentContract.RequiresNotNull(fileInfoWebResultConverter, nameof(fileInfoWebResultConverter));
+
             _httpClient = httpClient;
+            _fileInfoWebResultConverter = fileInfoWebResultConverter;
         }
 
         public async Task<FileInfo> UploadAsync(
@@ -51,7 +55,7 @@ namespace NexusLabs.OpenAI.Files
                 .ConfigureAwait(false);
 
             var webResult = DeserializeResponse<FileInfoWebResult>(responseString);
-            var result = ConvertFromFileInfoWebResult(webResult);
+            var result = _fileInfoWebResultConverter.ConvertFromFileInfoWebResult(webResult);
             return result;
         }
 
@@ -70,7 +74,7 @@ namespace NexusLabs.OpenAI.Files
                 .ConfigureAwait(false);
 
             var webResult = DeserializeResponse<ListFilesWebResult>(responseString);
-            var result = webResult.data.Select(ConvertFromFileInfoWebResult).ToArray();
+            var result = webResult.data.Select(_fileInfoWebResultConverter.ConvertFromFileInfoWebResult).ToArray();
             return result;
         }
 
@@ -131,7 +135,7 @@ namespace NexusLabs.OpenAI.Files
                 .ConfigureAwait(false);
 
             var webResult = DeserializeResponse<FileInfoWebResult>(responseString);
-            var result = ConvertFromFileInfoWebResult(webResult);
+            var result = _fileInfoWebResultConverter.ConvertFromFileInfoWebResult(webResult);
             return result;
         }
 
@@ -144,17 +148,6 @@ namespace NexusLabs.OpenAI.Files
 #pragma warning disable CS8603 // Possible null reference return.
             return webResult;
 #pragma warning restore CS8603 // Possible null reference return.
-        }
-
-        private static FileInfo ConvertFromFileInfoWebResult(FileInfoWebResult webResult)
-        {
-            ArgumentContract.RequiresNotNull(webResult, nameof(webResult));
-            return new FileInfo(
-                webResult.id,
-                webResult.bytes,
-                new DateTime(1970, 1, 1).AddSeconds(webResult.created_at),
-                webResult.filename,
-                webResult.purpose);
         }
     }
 }

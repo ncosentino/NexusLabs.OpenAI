@@ -13,14 +13,20 @@ namespace NexusLabs.OpenAI.FineTunes
     internal sealed class FineTunesApiClient : IFineTunesApiClient
     {
         private readonly IHttpClient _httpClient;
+        private readonly IFineTuneWebResultConverter _fineTuneWebResultConverter;
 
-        public FineTunesApiClient(IHttpClient httpClient)
+        public FineTunesApiClient(
+            IHttpClient httpClient,
+            IFineTuneWebResultConverter fineTuneWebResultConverter)
         {
             ArgumentContract.RequiresNotNull(httpClient, nameof(httpClient));
+            ArgumentContract.RequiresNotNull(fineTuneWebResultConverter, nameof(fineTuneWebResultConverter));
+
             _httpClient = httpClient;
+            _fineTuneWebResultConverter = fineTuneWebResultConverter;
         }
 
-        public async Task<object> CreateAsync(
+        public async Task<FineTune> CreateAsync(
             FineTuneParameters parameters, 
             CancellationToken cancellationToken = default)
         {
@@ -62,7 +68,8 @@ namespace NexusLabs.OpenAI.FineTunes
                     cancellationToken)
                 .ConfigureAwait(false);
 
-            var result = JsonConvert.DeserializeObject<FineTuneWebResult>(responseString);
+            var webResult = DeserializeResponse<FineTuneWebResult>(responseString);
+            var result = _fineTuneWebResultConverter.ConvertFromFineTuneWebResult(webResult);
             return result;
         }
 
@@ -144,5 +151,18 @@ namespace NexusLabs.OpenAI.FineTunes
                     cancellationToken)
                 .ConfigureAwait(false);
         }
+
+        private static T DeserializeResponse<T>(string responseString)
+        {
+            var webResult = JsonConvert.DeserializeObject<T>(responseString);
+            Contract.RequiresNotNull(
+                webResult,
+                () => $"JSON serializer returned null value for type {typeof(T)}.");
+#pragma warning disable CS8603 // Possible null reference return.
+            return webResult;
+#pragma warning restore CS8603 // Possible null reference return.
+        }
+
+        
     }
 }

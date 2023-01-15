@@ -23,12 +23,15 @@
         /// Optional. The instance of the <see cref="CancellationToken"/> to 
         /// use.
         /// </param>
-        /// <returns></returns>
+        /// <returns>
+        /// An instance of a <see cref="Task{Result}"/> containing an instance 
+        /// of a <see cref="FineTune"/>./>
+        /// </returns>
         /// <remarks>
         /// See official online documentation 
         /// <see href="https://beta.openai.com/docs/api-reference/fine-tunes/create">here</see>.
         /// </remarks>
-        Task<object> CreateAsync(
+        Task<FineTune> CreateAsync(
             FineTuneParameters parameters,
             CancellationToken cancellationToken = default);
 
