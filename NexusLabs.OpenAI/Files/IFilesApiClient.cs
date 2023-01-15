@@ -1,5 +1,13 @@
 ﻿namespace NexusLabs.OpenAI.Files
 {
+    /// <summary>
+    /// An interface that defines functionality for interacting with OpenAI's 
+    /// API for files.
+    /// </summary>
+    /// <remarks>
+    /// See official online documentation 
+    /// <see href="https://beta.openai.com/docs/api-reference/files">here</see>.
+    /// </remarks>
     public interface IFilesApiClient
     {
         /// <summary>
