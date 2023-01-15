@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33205.214
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NexusLabs.OpenAI", "NexusLabs.OpenAI\NexusLabs.OpenAI.csproj", "{6062847C-D1FA-438E-ADC0-14CD0AF09FE2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NexusLabs.OpenAI.Autofac", "NexusLabs.OpenAI.Autofac\NexusLabs.OpenAI.Autofac.csproj", "{5B687229-1356-43DF-8AF4-141C36B9C442}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NexusLabs.OpenAI.Autofac.Tests.Functional", "NexusLabs.OpenAI.Autofac.Tests.Functional\NexusLabs.OpenAI.Autofac.Tests.Functional.csproj", "{0A95590F-B492-4D91-A4D3-D9C9AA91C6A4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NexusLabs.OpenAI.Tests.Functional", "NexusLabs.OpenAI.Tests.Functional\NexusLabs.OpenAI.Tests.Functional.csproj", "{F62DC463-A9F6-45C1-8F4E-6C97AF991874}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NexusLabs.OpenAI.Examples", "NexusLabs.OpenAI.Examples\NexusLabs.OpenAI.Examples.csproj", "{C8468463-CC88-4466-A9CB-C4D6095619F5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6062847C-D1FA-438E-ADC0-14CD0AF09FE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6062847C-D1FA-438E-ADC0-14CD0AF09FE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6062847C-D1FA-438E-ADC0-14CD0AF09FE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6062847C-D1FA-438E-ADC0-14CD0AF09FE2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B687229-1356-43DF-8AF4-141C36B9C442}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B687229-1356-43DF-8AF4-141C36B9C442}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B687229-1356-43DF-8AF4-141C36B9C442}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B687229-1356-43DF-8AF4-141C36B9C442}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A95590F-B492-4D91-A4D3-D9C9AA91C6A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A95590F-B492-4D91-A4D3-D9C9AA91C6A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A95590F-B492-4D91-A4D3-D9C9AA91C6A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A95590F-B492-4D91-A4D3-D9C9AA91C6A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F62DC463-A9F6-45C1-8F4E-6C97AF991874}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F62DC463-A9F6-45C1-8F4E-6C97AF991874}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F62DC463-A9F6-45C1-8F4E-6C97AF991874}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F62DC463-A9F6-45C1-8F4E-6C97AF991874}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8468463-CC88-4466-A9CB-C4D6095619F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8468463-CC88-4466-A9CB-C4D6095619F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8468463-CC88-4466-A9CB-C4D6095619F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8468463-CC88-4466-A9CB-C4D6095619F5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AAD600E4-37E5-4358-B4A5-E0178BA3FD9D}
+	EndGlobalSection
+EndGlobal
