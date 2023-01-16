@@ -28,10 +28,29 @@ namespace NexusLabs.OpenAI.Completions
             var payload = new ExpandoObject();
             payload.TryAdd("model", parameters.Model);
 
-            if (parameters.Prompts != null)
+            void AddParameterIfSet<T>(string name, T arg)
             {
-                payload.TryAdd("prompt", parameters.Prompts);
+                if (arg != null)
+                {
+                    payload.TryAdd(name, arg);
+                }
             }
+
+            AddParameterIfSet("prompt", parameters.Prompts);
+            AddParameterIfSet("suffix", parameters.Suffix);
+            AddParameterIfSet("max_tokens", parameters.MaxTokens);
+            AddParameterIfSet("temperature", parameters.Temperature);
+            AddParameterIfSet("top_p", parameters.TopP);
+            AddParameterIfSet("n", parameters.N);
+            AddParameterIfSet("stream", parameters.Stream);
+            AddParameterIfSet("logprobs", parameters.LogProbs);
+            AddParameterIfSet("echo", parameters.Echo);
+            AddParameterIfSet("stop", parameters.Stop);
+            AddParameterIfSet("presence_penalty", parameters.PresencePenalty);
+            AddParameterIfSet("frequency_penalty", parameters.FrequencyPenalty);
+            AddParameterIfSet("best_of", parameters.BestOf);
+            AddParameterIfSet("logit_bias", parameters.LogitBias);
+            AddParameterIfSet("user", parameters.User);
 
             var request = new HttpRequestMessage
             {
