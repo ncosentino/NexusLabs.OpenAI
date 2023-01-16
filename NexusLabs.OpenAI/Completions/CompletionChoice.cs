@@ -3,6 +3,6 @@
     public sealed record CompletionChoice(
         string Text,
         int Index,
-        string Logprobs,
+        int? Logprobs,
         string FinishReason);
 }

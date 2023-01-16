@@ -3,6 +3,6 @@
     internal sealed record CompletionChoiceWebResult(
         string text,
         int index,
-        string logprobs,
+        int? logprobs,
         string finish_reason);
 }
