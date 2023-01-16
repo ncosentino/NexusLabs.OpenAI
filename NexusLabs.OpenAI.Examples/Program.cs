@@ -25,6 +25,20 @@ void PrintExampleNames()
     }
 }
 
+void WriteErrorLine(string message)
+{
+    var restoreColor = Console.ForegroundColor;
+    try
+    {
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine(message);
+    }
+    finally
+    {
+        Console.ForegroundColor = restoreColor;
+    }
+}
+
 var openAiApiClientFactory = scope.Resolve<IOpenAiApiClientFactory>();
 using var openAiApiClient = openAiApiClientFactory.Create(new OpenAiApiConfiguration(
     "YOUR_API_KEY_HERE_FOR_TESTING"));
@@ -41,24 +55,27 @@ while (true)
     var split = input.Split(".", StringSplitOptions.TrimEntries);
     if (split.Length != 2)
     {
-        Console.WriteLine("Invalid input. Must be in the form:\r\n\tExampleSetName.ExampleName");
+        WriteErrorLine("Invalid input. Must be in the form:\r\n\tExampleSetName.ExampleName");
         continue;
     }
 
     var exampleSetName = split[0];
     if (!examples.TryGetValue(exampleSetName, out var exampleSet))
     {
-        Console.WriteLine($"Could not find example set with name:\r\n\t{exampleSetName}");
+        WriteErrorLine($"Could not find example set with name:\r\n\t{exampleSetName}");
         continue;
     }
 
     var exampleName = split[1];
     if (!exampleSet.TryGetValue(exampleName, out var example))
     {
-        Console.WriteLine($"Could not find example in example set '{exampleSetName}' with name:\r\n\t{exampleName}");
+        WriteErrorLine($"Could not find example in example set '{exampleSetName}' with name:\r\n\t{exampleName}");
         continue;
     }
 
+    Console.WriteLine($"Running example '{exampleSetName}.{exampleName}'...");
+    Console.WriteLine("----------");
     var exampleTask = (Task)example.Invoke(null, new object[] { openAiApiClient });
     await exampleTask;
+    Console.WriteLine("----------");
 }
