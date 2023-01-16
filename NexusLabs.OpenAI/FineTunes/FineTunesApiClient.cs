@@ -114,8 +114,9 @@ namespace NexusLabs.OpenAI.FineTunes
             var webResult = DeserializeResponse<ListFineTunesWebResult>(responseString);
             var result = webResult
                 .data
-                .Select(_fineTuneWebResultConverter.ConvertFromFineTuneWebResult)
-                .ToArray();
+                ?.Select(_fineTuneWebResultConverter.ConvertFromFineTuneWebResult)
+                .ToArray()
+                ?? Array.Empty<FineTune>();
             return result;
         }
 
