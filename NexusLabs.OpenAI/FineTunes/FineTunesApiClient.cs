@@ -73,7 +73,7 @@ namespace NexusLabs.OpenAI.FineTunes
             return result;
         }
 
-        public async Task<object> GetStatusAsync(
+        public async Task<FineTune> GetStatusAsync(
             string fineTuneId, 
             CancellationToken cancellationToken = default)
         {
@@ -91,11 +91,12 @@ namespace NexusLabs.OpenAI.FineTunes
                     cancellationToken)
                 .ConfigureAwait(false);
 
-            var result = JsonConvert.DeserializeObject<FineTuneWebResult>(responseString);
+            var webResult = DeserializeResponse<FineTuneWebResult>(responseString);
+            var result = _fineTuneWebResultConverter.ConvertFromFineTuneWebResult(webResult);
             return result;
         }
 
-        public async Task<object> ListAsync(
+        public async Task<IReadOnlyCollection<FineTune>> ListAsync(
             CancellationToken cancellationToken = default)
         {
             var request = new HttpRequestMessage
@@ -110,7 +111,11 @@ namespace NexusLabs.OpenAI.FineTunes
                     cancellationToken)
                 .ConfigureAwait(false);
 
-            var result = JsonConvert.DeserializeObject<ListFineTunesWebResult>(responseString);
+            var webResult = DeserializeResponse<ListFineTunesWebResult>(responseString);
+            var result = webResult
+                .data
+                .Select(_fineTuneWebResultConverter.ConvertFromFineTuneWebResult)
+                .ToArray();
             return result;
         }
 

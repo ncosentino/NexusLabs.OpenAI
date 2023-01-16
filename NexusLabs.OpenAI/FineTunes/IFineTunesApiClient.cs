@@ -2,10 +2,10 @@
 {
     public interface IFineTunesApiClient
     {
-        Task<object> ListAsync(
+        Task<IReadOnlyCollection<FineTune>> ListAsync(
             CancellationToken cancellationToken = default);
 
-        Task<object> GetStatusAsync(
+        Task<FineTune> GetStatusAsync(
             string fineTuneId,
             CancellationToken cancellationToken = default);
 
