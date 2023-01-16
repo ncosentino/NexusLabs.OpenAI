@@ -21,8 +21,21 @@
 
   <ItemGroup>
     <PackageReference Include="Autofac" Version="6.5.0" />
-    <PackageReference Include="NexusLabs.OpenAI" Version="0.0.1.*" />
   </ItemGroup>
+
+  <!-- FIXME: should figure out the developer vs release experience -->
+  <Choose>
+    <When Condition="'$(Configuration)' == 'Debug'">
+      <ItemGroup>
+        <ProjectReference Include="..\NexusLabs.OpenAI\NexusLabs.OpenAI.csproj" />
+      </ItemGroup>
+    </When>
+    <Otherwise>
+      <ItemGroup>
+        <PackageReference Include="NexusLabs.OpenAI" Version="0.0.1.*" />
+      </ItemGroup>
+    </Otherwise>
+  </Choose>
 
   <ItemGroup>
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
