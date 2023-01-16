@@ -1,6 +1,4 @@
-﻿using System.Reflection;
-
-using Autofac;
+﻿using Autofac;
 
 using NexusLabs.OpenAI;
 using NexusLabs.OpenAI.Autofac;
@@ -14,24 +12,15 @@ using var scope = container.BeginLifetimeScope();
 
 var examples = new ExampleDiscoverer().GetExamples();
 
-void PrintExampleNames()
-{
-    foreach (var exampleSet in examples)
-    {
-        foreach (var example in exampleSet.Value)
-        {
-            Console.WriteLine($"\t{exampleSet.Key}.{example.Key}");
-        }
-    }
-}
-
-void WriteErrorLine(string message)
+async Task UseConsoleColorAsync(
+    ConsoleColor consoleColor,
+    Func<Task> callback)
 {
     var restoreColor = Console.ForegroundColor;
     try
     {
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.WriteLine(message);
+        Console.ForegroundColor = consoleColor;
+        await callback.Invoke();
     }
     finally
     {
@@ -39,14 +28,61 @@ void WriteErrorLine(string message)
     }
 }
 
+void UseConsoleColor(
+    ConsoleColor consoleColor,
+    Action callback)
+{
+    UseConsoleColorAsync(consoleColor, () =>
+    {
+        callback();
+        return Task.CompletedTask;
+    }).Wait();
+}
+
+void WriteErrorLine(string message)
+{
+    UseConsoleColor(
+        ConsoleColor.Red,
+        () => Console.WriteLine(message));
+}
+
+void PrintExamples()
+{
+    Console.WriteLine("Here are the list of examples:");
+    foreach (var exampleSet in examples.OrderBy(x => x.Key))
+    {
+        Console.WriteLine($"\t{exampleSet.Key}");
+        UseConsoleColor(ConsoleColor.Magenta, () =>
+        {
+            foreach (var example in exampleSet.Value)
+            {
+                Console.WriteLine($"\t\t{exampleSet.Key}.{example.Key}");
+            }
+        });
+    }
+}
+
+var apiKey = args?.FirstOrDefault(x => x.StartsWith("APIKEY=", StringComparison.OrdinalIgnoreCase))?.Substring(7)?.Trim();
+if (string.IsNullOrWhiteSpace(apiKey))
+{
+    WriteErrorLine(
+        "It looks like your API key was not set on the command line. If you " +
+        "are running this from visual studio, it is recommended that you use " +
+        "launch settings (which you can find more about here: " +
+        "https://learn.microsoft.com/en-us/visualstudio/mac/launch-settings). " +
+        "Please provide your API key for OpenAI on the command line by " +
+        "specifying APIKEY=<your_key_here> (without the < and > symbols).");
+    return;
+}
+
+var configuration = new OpenAiApiConfiguration(apiKey);
+
 var openAiApiClientFactory = scope.Resolve<IOpenAiApiClientFactory>();
-using var openAiApiClient = openAiApiClientFactory.Create(new OpenAiApiConfiguration(
-    "YOUR_API_KEY_HERE_FOR_TESTING"));
+using var openAiApiClient = openAiApiClientFactory.Create(configuration);
 
 while (true)
 {
-    Console.WriteLine("Here are the list of examples:");
-    PrintExampleNames();
+    PrintExamples();
 
     Console.WriteLine(
         "Type (or copy+paste) the name of an example to run. Press ctrl+c to " +
@@ -73,9 +109,12 @@ while (true)
         continue;
     }
 
-    Console.WriteLine($"Running example '{exampleSetName}.{exampleName}'...");
-    Console.WriteLine("----------");
-    var exampleTask = (Task)example.Invoke(null, new object[] { openAiApiClient });
-    await exampleTask;
-    Console.WriteLine("----------");
+    UseConsoleColor(ConsoleColor.Green, () => Console.WriteLine($"Running example '{exampleSetName}.{exampleName}'..."));
+    UseConsoleColor(ConsoleColor.Green, () => Console.WriteLine("----------"));
+    await UseConsoleColorAsync(ConsoleColor.Cyan, async () =>
+    {
+        var exampleTask = (Task)example.Invoke(null, new object[] { openAiApiClient });
+        await exampleTask;
+    });
+    UseConsoleColor(ConsoleColor.Green, () => Console.WriteLine("----------"));
 }

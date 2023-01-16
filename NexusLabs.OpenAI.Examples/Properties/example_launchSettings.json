@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "NexusLabs.OpenAI.Examples": {
+      "commandName": "Project",
+      "commandLineArgs": "YOUR_API_KEY_HERE"
+    }
+  }
+}
