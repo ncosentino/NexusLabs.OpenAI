@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 
 using NexusLabs.Contracts;
 using NexusLabs.OpenAI.Http;
+using NexusLabs.OpenAI.OpenAiDtos;
 
 namespace NexusLabs.OpenAI.Completions
 {
@@ -18,7 +19,7 @@ namespace NexusLabs.OpenAI.Completions
             _httpClient = httpClient;
         }
 
-        public async Task<string> CreateAsync(
+        public async Task<Completion> CreateAsync(
             CompletionParameters parameters, 
             CancellationToken cancellationToken = default)
         {
@@ -45,8 +46,37 @@ namespace NexusLabs.OpenAI.Completions
                     cancellationToken)
                 .ConfigureAwait(false);
 
-            dynamic responseJson = JsonConvert.DeserializeObject(responseString);
-            return responseJson.choices[0].text;
+            var webResult = DeserializeResponse<CompletionWebResult>(responseString);
+            var result = new Completion(
+                webResult.id,
+                new DateTime(1970, 1, 1).AddSeconds(webResult.created),
+                webResult.model,
+                webResult.choices == null
+                    ? Array.Empty<CompletionChoice>()
+                    : webResult
+                        .choices
+                        .Select(x => new CompletionChoice(
+                            x.text,
+                            x.index,
+                            x.logprobs,
+                            x.finish_reason))
+                        .ToArray(),
+                new CompletionUsage(
+                    webResult.usage.prompt_tokens,
+                    webResult.usage.completion_tokens,
+                    webResult.usage.total_tokens));
+            return result;
+        }
+
+        private static T DeserializeResponse<T>(string responseString)
+        {
+            var webResult = JsonConvert.DeserializeObject<T>(responseString);
+            Contract.RequiresNotNull(
+                webResult,
+                () => $"JSON serializer returned null value for type {typeof(T)}.");
+#pragma warning disable CS8603 // Possible null reference return.
+            return webResult;
+#pragma warning restore CS8603 // Possible null reference return.
         }
     }
 }

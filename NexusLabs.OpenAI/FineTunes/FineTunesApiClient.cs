@@ -1,4 +1,5 @@
-﻿using System.Dynamic;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Dynamic;
 using System.Text;
 using System.Threading;
 
@@ -167,8 +168,6 @@ namespace NexusLabs.OpenAI.FineTunes
 #pragma warning disable CS8603 // Possible null reference return.
             return webResult;
 #pragma warning restore CS8603 // Possible null reference return.
-        }
-
-        
+        }        
     }
 }

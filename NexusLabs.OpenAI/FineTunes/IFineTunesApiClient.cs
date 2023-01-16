@@ -1,5 +1,13 @@
 ﻿namespace NexusLabs.OpenAI.FineTunes
 {
+    /// <summary>
+    /// An interface that defines functionality for interacting with OpenAI's 
+    /// API for fine tuning.
+    /// </summary>
+    /// <remarks>
+    /// See official online documentation 
+    /// <see href="https://beta.openai.com/docs/api-reference/fine-tunes">here</see>.
+    /// </remarks>
     public interface IFineTunesApiClient
     {
         Task<IReadOnlyCollection<FineTune>> ListAsync(

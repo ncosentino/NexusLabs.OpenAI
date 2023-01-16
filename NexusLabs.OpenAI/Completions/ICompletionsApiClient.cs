@@ -20,8 +20,15 @@
         /// Optional. The instance of the <see cref="CancellationToken"/> to 
         /// use.
         /// </param>
-        /// <returns></returns>
-        Task<string> CreateAsync(
+        /// <returns>
+        /// An instance of a <see cref="Task{TResult}"/> containing an 
+        /// instance of <see cref="Completion"/>.
+        /// </returns>
+        /// <remarks>
+        /// See official online documentation 
+        /// <see href="https://beta.openai.com/docs/api-reference/completions/create">here</see>.
+        /// </remarks>
+        Task<Completion> CreateAsync(
             CompletionParameters parameters, 
             CancellationToken cancellationToken = default);
     }
