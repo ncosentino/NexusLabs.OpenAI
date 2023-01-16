@@ -17,6 +17,7 @@
     <PackageVersion>0.0.1.3</PackageVersion>
     <Company />
     <Authors>ncosentino;</Authors>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -50,10 +51,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\README.md">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
+    <None Include="..\README.md" Pack="true" PackagePath="\"/>
+    <None Include="..\LICENSE" Pack="true" PackagePath="\"/>
   </ItemGroup>
 
 </Project>
