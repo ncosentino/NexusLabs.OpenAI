@@ -9,8 +9,11 @@
 
   <ItemGroup>
     <PackageReference Include="Autofac" Version="6.5.0" />
-    <PackageReference Include="NexusLabs.OpenAI" Version="*" />
-    <PackageReference Include="NexusLabs.OpenAI.Autofac" Version="*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NexusLabs.OpenAI\NexusLabs.OpenAI.csproj" />
+    <ProjectReference Include="..\NexusLabs.OpenAI.Autofac\NexusLabs.OpenAI.Autofac.csproj" />
   </ItemGroup>
 
 </Project>
