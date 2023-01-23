@@ -1,4 +1,5 @@
 ﻿using NexusLabs.OpenAI.Completions;
+using NexusLabs.OpenAI.Embeddings;
 using NexusLabs.OpenAI.Files;
 using NexusLabs.OpenAI.FineTunes;
 using NexusLabs.OpenAI.Http;
@@ -41,11 +42,13 @@ namespace NexusLabs.OpenAI
                 fineTuneWebResultConverter);
             var modelsApi = new ModelsApiClient(httpClient);
             var completionsApi = new CompletionsApiClient(httpClient);
+            var embeddingsApi = new EmbeddingsApiClient(httpClient);
             var openAiApiClient = new OpenAiApiClient(
                 fineTuneApi,
                 filesApi,
                 modelsApi,
                 completionsApi,
+                embeddingsApi,
                 () => httpClient.Dispose());
             return openAiApiClient;
         }

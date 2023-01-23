@@ -1,4 +1,5 @@
 ﻿using NexusLabs.OpenAI.Completions;
+using NexusLabs.OpenAI.Embeddings;
 using NexusLabs.OpenAI.Files;
 using NexusLabs.OpenAI.FineTunes;
 using NexusLabs.OpenAI.Models;
@@ -14,5 +15,7 @@ namespace NexusLabs.OpenAI
         IModelsApiClient Models { get; }
 
         ICompletionsApiClient Completions { get; }
+
+        IEmbeddingsApiClient Embeddings { get; }
     }
 }
