@@ -16,7 +16,7 @@ namespace NexusLabs.OpenAI.Models
             _httpClient = httpClient;
         }
 
-        public async Task<object> ListAsync(
+        public async Task<ModelsList> ListAsync(
             CancellationToken cancellationToken = default)
         {
             var request = new HttpRequestMessage
@@ -30,8 +30,27 @@ namespace NexusLabs.OpenAI.Models
                     cancellationToken)
                 .ConfigureAwait(false);
 
-            var result = JsonConvert.DeserializeObject<ListModelsWebResult>(responseString);
+            var webResult = DeserializeResponse<ListModelsWebResult>(responseString);
+            var result = new ModelsList(webResult
+                .data
+                ?.Select(x => new Model(
+                    x.id,
+                    x.owned_by,
+                    x.permission))
+                ?.ToArray()
+                ?? Array.Empty<Model>());
             return result;
+        }
+
+        private static T DeserializeResponse<T>(string responseString)
+        {
+            var webResult = JsonConvert.DeserializeObject<T>(responseString);
+            Contract.RequiresNotNull(
+                webResult,
+                () => $"JSON serializer returned null value for type {typeof(T)}.");
+#pragma warning disable CS8603 // Possible null reference return.
+            return webResult;
+#pragma warning restore CS8603 // Possible null reference return.
         }
     }
 }

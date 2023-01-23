@@ -10,7 +10,7 @@
         /// use.
         /// </param>
         /// <returns></returns>
-        Task<object> ListAsync(
+        Task<ModelsList> ListAsync(
             CancellationToken cancellationToken = default);
     }
 }
