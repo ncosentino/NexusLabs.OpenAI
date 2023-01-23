@@ -16,6 +16,15 @@
                 .Content
                 .ReadAsStringAsync(cancellationToken)
                 .ConfigureAwait(false);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new InvalidOperationException(
+                    $"The response ({response.StatusCode}) indicated that the " +
+                    $"request was not successful." +
+                    $"\r\n{responseString}");
+            }
+
             return responseString;
         }
     }
