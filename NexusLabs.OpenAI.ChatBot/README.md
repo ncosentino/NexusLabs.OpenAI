@@ -6,4 +6,5 @@ initially started as a C# port of the approach he had created. Inevitably,
 there will be drifts between his work and what we see in this library because:
 1) Different languages
 2) Different repositories
+
 However, it is important to state that his efforts were the inspiration.
