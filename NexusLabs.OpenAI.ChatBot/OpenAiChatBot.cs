@@ -57,7 +57,7 @@ namespace NexusLabs.OpenAI.ChatBot
                 .ConfigureAwait(false);
             var prompt = _promptBuilder.BuildPrompt(
                 notes,
-                latestMemories.Select(x => x.Message));
+                latestMemories.Select(x => x.FormattedMessage));
             var completionResponse = await _openAiApiClient
                 .Completions
                 .CreateAsync(new CompletionParameters(

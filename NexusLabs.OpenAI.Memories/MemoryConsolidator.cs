@@ -71,7 +71,7 @@ namespace NexusLabs.OpenAI.Memories
             // sort them chronologically
             foreach (var memory in memories.OrderBy(x => x.UtcTimestamp))
             {
-                notesPromptBuilder.Append(memory.Message);
+                notesPromptBuilder.Append(memory.FormattedMessage);
                 notesPromptBuilder.Append("\r\n");
             }
 

@@ -29,7 +29,7 @@ namespace NexusLabs.OpenAI.Memories
                 .Embeddings
                 .CreateAsync(new EmbeddingParameters(
                     _configuration.Model, 
-                    memoryEntry.Message))
+                    memoryEntry.FormattedMessage))
                 .ConfigureAwait(false);
             var vectorizedMemoryEntry = new VectorizedMemoryEntry(
                 memoryEntry.Id,

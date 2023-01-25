@@ -17,9 +17,8 @@
                     .SendMessageAsync(input)
                     .ConfigureAwait(false);
                 PrintAiResponse(responseText);
-
             }
-        }        
+        }
 
         private static string? GetUserInput()
         {
