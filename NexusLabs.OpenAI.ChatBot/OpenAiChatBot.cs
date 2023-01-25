@@ -45,10 +45,7 @@ namespace NexusLabs.OpenAI.ChatBot
                 .ToArrayAsync()
                 .ConfigureAwait(false);
             var notes = await _memoryConsolidator
-                .SummarizeMemoriesAsync(new ConsolidateParameters(
-                    memories
-                        .Select(x => new MemoryEntry(x.Id, x.Speaker, x.UtcTimestamp, x.Message))
-                        .ToArray()))
+                .SummarizeMemoriesAsync(new ConsolidateParameters(memories))
                 .ToArrayAsync()
                 .ConfigureAwait(false);
             var latestMemories = await _memoriesManager
