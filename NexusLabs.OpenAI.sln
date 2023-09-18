@@ -13,9 +13,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NexusLabs.OpenAI.Tests.Func
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NexusLabs.OpenAI.Examples", "NexusLabs.OpenAI.Examples\NexusLabs.OpenAI.Examples.csproj", "{C8468463-CC88-4466-A9CB-C4D6095619F5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NexusLabs.OpenAI.Memories", "NexusLabs.OpenAi.Memories\NexusLabs.OpenAI.Memories.csproj", "{3913E4E5-4C45-44CD-8943-CD60D132B1C7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NexusLabs.OpenAI.Memories", "NexusLabs.OpenAi.Memories\NexusLabs.OpenAI.Memories.csproj", "{3913E4E5-4C45-44CD-8943-CD60D132B1C7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NexusLabs.OpenAI.ChatBot", "NexusLabs.OpenAI.ChatBot\NexusLabs.OpenAI.ChatBot.csproj", "{E821FEE9-A296-4DFA-A4F5-708D7CACA662}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NexusLabs.OpenAI.ChatBot", "NexusLabs.OpenAI.ChatBot\NexusLabs.OpenAI.ChatBot.csproj", "{E821FEE9-A296-4DFA-A4F5-708D7CACA662}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NexusLabs.Faiss.WebApi", "NexusLabs.Faiss.WebApi\NexusLabs.Faiss.WebApi.csproj", "{C83901FC-9BF3-4FCA-825C-B96126BD9D83}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{E821FEE9-A296-4DFA-A4F5-708D7CACA662}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E821FEE9-A296-4DFA-A4F5-708D7CACA662}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E821FEE9-A296-4DFA-A4F5-708D7CACA662}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C83901FC-9BF3-4FCA-825C-B96126BD9D83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C83901FC-9BF3-4FCA-825C-B96126BD9D83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C83901FC-9BF3-4FCA-825C-B96126BD9D83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C83901FC-9BF3-4FCA-825C-B96126BD9D83}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

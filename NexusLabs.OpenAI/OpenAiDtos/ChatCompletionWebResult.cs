@@ -1,9 +1,9 @@
 ﻿namespace NexusLabs.OpenAI.OpenAiDtos;
 
-internal sealed record CompletionWebResult(
+internal sealed record ChatCompletionWebResult(
     string id,
     string @object,
     long created,
     string model,
-    CompletionChoiceWebResult[] choices,
+    ChatCompletionChoiceWebResult[] choices,
     CompletionUsageWebResult usage);
